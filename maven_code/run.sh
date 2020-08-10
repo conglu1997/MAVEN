@@ -1,8 +1,7 @@
 #!/bin/bash
 HASH=$(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 4 | head -n 1)
 GPU=$1
-LABEL=$2
-name=${USER}_${LABEL}_$(date '+%d%m%Y%H')_${GPU}_${HASH}
+name=${USER}_maven_GPU_${GPU}_${HASH}
 
 echo "Launching container named '${name}' on GPU '${GPU}'"
 # Launches a docker container using our image, and runs the provided command
@@ -15,7 +14,9 @@ fi
 
 NV_GPU="$GPU" ${cmd} run \
     --name $name \
-    --user $(id -u) \
+    --user $(id -u):$(id -g) \
     -v `pwd`:/pymarl \
-    -t pymarl \
-    ${@:3}
+    -v /data:/data \
+    -e STORAGE_HOSTNAME=`hostname -s` \
+    -t cong/maven \
+    ${@:2}

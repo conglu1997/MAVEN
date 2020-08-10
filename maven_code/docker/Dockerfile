@@ -45,4 +45,13 @@ RUN pip3 install pymongo
 RUN pip3 install torch
 RUN pip3 install torchvision snakeviz pytest probscale
 
+## -- gfootball
+RUN pip3 install tensorflow==1.15rc2 dm-sonnet psutil
+RUN pip3 install git+https://github.com/openai/baselines.git@master
+
+RUN sed -i 's|-L${SDL2_LIBDIR}  -lSDL2 |-L${SDL2_LIBDIR}  -lSDL2|g' /usr/lib/x86_64-linux-gnu/cmake/SDL2/sdl2-config.cmake
+
+RUN pip3 install git+https://github.com/conglu1997/football.git@new_version
+
+
 WORKDIR /pymarl
