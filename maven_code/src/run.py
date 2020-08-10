@@ -16,7 +16,7 @@ from components.episode_buffer import ReplayBuffer
 from components.transforms import OneHot
 
 
-def run(_run, _config, _log):
+def run(_run, _config, _log, pymongo_client):
 
     # check args sanity
     _config = args_sanity_check(_config, _log)
@@ -49,6 +49,11 @@ def run(_run, _config, _log):
 
     # Clean up after finishing
     print("Exiting Main")
+
+    if pymongo_client is not None:
+        print("Attempting to close mongodb client")
+        pymongo_client.close()
+        print("Mongodb client closed")
 
     print("Stopping all threads")
     for t in threading.enumerate():

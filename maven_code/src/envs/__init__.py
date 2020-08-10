@@ -1,7 +1,7 @@
 from functools import partial
 from .multiagentenv import MultiAgentEnv
 from .matrix_game.nstep_matrix_game import NStepMatrixGame
-from .starcraft2 import StarCraft2Env
+# from .starcraft2 import StarCraft2Env
 from .gfootball.gfootball import FootballEnv
 
 def env_fn(env, **kwargs) -> MultiAgentEnv:
@@ -9,5 +9,5 @@ def env_fn(env, **kwargs) -> MultiAgentEnv:
 
 REGISTRY = {}
 REGISTRY["nstep_matrix"] = partial(env_fn, env=NStepMatrixGame)
-REGISTRY["sc2"] = partial(env_fn, env=StarCraft2Env)
+# REGISTRY["sc2"] = partial(env_fn, env=StarCraft2Env)
 REGISTRY["gfootball"] = partial(env_fn, env=FootballEnv)

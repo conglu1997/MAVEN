@@ -92,10 +92,12 @@ class NoiseMAC:
         return inputs
 
     def _get_input_shape(self, scheme):
-        input_shape = scheme["obs"]["vshape"]
+        # Unwrap tuple, hacking since the addition seems to not work between tuple and int
+        input_shape = scheme["obs"]["vshape"][0]
         if self.args.obs_last_action:
             input_shape += scheme["actions_onehot"]["vshape"][0]
         if self.args.obs_agent_id:
             input_shape += self.n_agents
 
-        return input_shape
+        return (input_shape)
+    
